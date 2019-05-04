@@ -1,0 +1,145 @@
+{%  extends "base.html" %}
+{% load static%}
+
+
+{% block content %}
+
+         <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+        <!-- Header -->
+
+        {% include "top.html" %}
+        <!-- // END Header -->
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content page-content pb-0">
+
+
+            <div class="navbar navbar-expand-sm navbar-list navbar-submenu navbar-dark p-0 m-0">
+                <div class="container-fluid align-items-start align-items-sm-center">
+                    <div class="navbar-list__item">
+                        <nav class="nav nav-links nav--flush">
+                            <a data-toggle="sidebar" data-target="#filters-drawer" class="active nav-link d-flex align-items-center"><span class="material-icons mx-4pt">close</span> فیلتر دوره ها</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdk-drawer-layout js-mdk-drawer-layout" data-responsive-width="768px" data-push>
+
+                <!-- content -->
+                <div class="mdk-drawer-layout__content">
+                    <div class="page-section">
+                        <div class="container page__container">
+                            <div class="page-heading">
+                                <h4>دوره ها</h4>
+                                <p class="ml-sm-auto text-70 mb-0"><strong>{{ course_list.count }}</strong> دوره</p>
+                            </div>
+
+
+
+                            {% for course in object_list %}
+                                <div class="card course-list-item o-hidden overlay js-overlay" data-trigger="hover">
+                                <div class="media media-stack-xs align-items-stretch">
+                                    <div class="media-left media__thumbnail mr-0">
+                                        <a href="{% url "course_detail" slug=course.slug %}" class="js-image" data-position="center">
+                                            <img src="assets/images/paths/angular_430x168.png" alt="course">
+                                            <span class="overlay__content">
+                                                <span class="overlay__action d-flex flex-column text-center">
+                                                    <i class="material-icons">play_circle_outline</i>
+                                                    <small>Preview course</small>
+                                                </span>
+                                            </span>
+                                        </a>
+
+                                        <span class="corner-ribbon corner-ribbon--default-left-top corner-ribbon--shadow bg-accent text-white">NEW</span>
+
+                                    </div>
+                                    <div class="media-body card-body">
+                                        <div class="d-flex">
+                                            <div class="flex">
+                                                <a class="card-title m-0" href="#">{{ course.title }}</a>
+                                                <p class="d-flex flex-wrap lh-1 mb-16pt">
+                                                    <small class="text-50 font-weight-bold mr-8pt">Elijah Murray</small>
+                                                    <small class="text-50">Software Engineer and Developer</small>
+                                                </p>
+                                            </div>
+                                            <a href="course.html" class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite</a>
+                                        </div>
+
+                                        <p class="text-50 course-list-item__excerpt">  {{ course.description }}</p>
+
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex d-flex lh-1">
+                                                <small class="text-50 mr-8pt">6 hours</small>
+                                                <small class="text-50">13 lessons</small>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <small class="text-50 mr-8pt">4.7</small>
+                                                <div class="rating flex">
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+                                                    <span class="rating__item"><span class="material-icons">star</span></span>
+                                                    <span class="rating__item"><span class="material-icons">star_border</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% empty %}
+                                <li>No articles yet.</li>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- drawer -->
+                <div class="mdk-drawer js-mdk-drawer" id="filters-drawer">
+                    <div class="mdk-drawer__content">
+                        <div class="mdk-drawer__inner" data-perfect-scrollbar data-perfect-scrollbar-wheel-propagation="true">
+                            <div class="pt-md-32pt pt-lg-64pt">
+                                <div class="px-24pt mb-24pt mb-md-48pt filter-section">
+                                    <ul class="accordion js-accordion m-0" id="library-category">
+                                        <li class="accordion__item open">
+                                            <a class="accordion__toggle" data-toggle="collapse" data-parent="#library-category" href="#library-all">
+                                                <span class="flex">گروه ها</span>
+                                                <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                                            </a>
+                                            <nav class="accordion__menu collapse show" id="library-all">
+                                                <a class="accordion__menu-link active" href="{% url "course_list" %}">همه گروه ها</a>
+                                                <a class="accordion__menu-link" href="library-filters-development.html">زبان های برنامه نویسی</a>
+                                                <a class="accordion__menu-link" href="library-filters-development.html">وب</a>
+                                                <a class="accordion__menu-link" href="library-filters-development.html">Android</a>
+                                                <a class="accordion__menu-link" href="library-filters-development.html">iOS</a>
+                                                <a class="accordion__menu-link" href="library-filters-development.html">بانک های اطلاعاتی</a>
+                                            </nav>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- // END drawer-layout -->
+
+
+
+
+
+
+
+
+
+        </div>
+        <!-- // END Header Layout Content -->
+
+    </div>
+    <!-- // END Header Layout -->
+{% endblock %}
