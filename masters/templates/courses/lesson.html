@@ -67,53 +67,54 @@
 
         <!-- Header Layout Content -->
         <div class="mdk-header-layout__content page-content pb-0">
-            <div class="mdk-box bg-dark mdk-box--bg-gradient-primary js-mdk-box mb-0" data-effects="blend-background">
-                <div class="mdk-box__content">
-                    <div class="hero py-64pt text-center text-sm-left">
-                        <div class="container">
-                            <h1 class="text-white">{{ object.title }}</h1>
-                            <p class="lead text-white-50 measure-hero-lead">{{ object.abstract }}</p>
-                            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-                                <a href="pricing.html" class="btn btn-white">عضویت در دوره</a>
-                            </div>
+            <div class="navbar navbar-submenu navbar-dark border-0 navbar-expand">
+                <div class="container">
+                    <div class="media flex-nowrap">
+                        <div class="media-left mr-16pt">
+                            <a href="course.html"><img src="{{ course.thumbnail.url }}" width="40"
+                                                       alt="Angular" class="rounded"></a>
+                        </div>
+                        <div class="media-body">
+                            <a href="course.html" class="card-title text-body mb-0">{{ course.title }}</a>
+                            <p class="lh-1 d-flex align-items-center mb-0">
+                                 {% for author in course.authors.all %}
+                                <span class="text-50 small font-weight-bold mr-8pt">{{ author.get_full_name }}</span>
+                                {% endfor %}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="navbar navbar-expand-sm navbar-submenu navbar-light navbar-list p-0 m-0 align-items-center">
-                <div class="container page__container">
-                    <ul class="nav navbar-nav flex align-items-sm-center">
-                        <li class="nav-item navbar-list__item">
-                            <div class="media align-items-center">
-                                <div class="media-body">
-                                    {% for author in object.authors.all %}
-                                    <a class="card-title m-0" href="instructor-profile.html">{{ author.get_full_name }}</a>
-                                    {% endfor %}
-                                    <p class="text-50 lh-1 mb-0">مدرس</p>
-                                </div>
+            <div class="bg-gradient-primary pb-lg-64pt py-32pt">
+                <div class="container">
+                    <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
+                         data-domfactory-upgraded="player">
+                        <div class="player embed-responsive-item">
+                            <div class="player__content">
+                                <div class="player__image"
+                                     style="--player-image: url(assets/images/illustration/player.svg)"></div>
+                                <a href="" class="player__play">
+                                    <span class="material-icons">play_arrow</span>
+                                </a>
                             </div>
-                        </li>
-                        <li class="nav-item navbar-list__item">
-                            <i class="material-icons text-muted icon--left">schedule</i>
-                            {{ object.time_duration }}
-                        </li>
-                        <li class="nav-item navbar-list__item">
-                            <i class="material-icons text-muted icon--left">assessment</i>
-                            {{ object.level }}
-                        </li>
-                        <li class="nav-item ml-sm-auto text-sm-center flex-column navbar-list__item">
-                            <div class="alert alert-secondary">
-                               {% if object.is_free %}
-                                   رایگان
-                                {% else %}
-                                {% endif %}
+                            <div class="player__embed d-none">
+                                <iframe class="embed-responsive-item"
+                                        src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0"
+                                        allowfullscreen=""></iframe>
                             </div>
+                        </div>
+                    </div>
 
-                        </li>
-                    </ul>
+                    <div class="d-flex flex-wrap align-items-end mb-16pt">
+                        <h1 class="text-white flex m-0">{{ item.title}}</h1>
+                        <p class="h1 text-white-50 font-weight-light m-0">{{ item.duration }}</p>
+                    </div>
+
+                    <p class="hero__lead measure-hero-lead text-white-50 mb-24pt">{{ item.description }}</p>
+
                 </div>
             </div>
+
 
             <div class="page-section border-bottom-2">
                 <div class="container page__container">
@@ -125,7 +126,7 @@
 
                             <ul class="accordion accordion--boxed js-accordion list-group-flush" id="course-toc">
 
-                                {% for section in object.coursesection_set.all %}
+                                {% for section in course.coursesection_set.all %}
                                 <li class="accordion__item open">
                                     <a class="accordion__toggle" data-toggle="collapse" data-parent="#course-toc" href="#course-toc-1">
                                         <span class="flex">{{ section.title }}</span>
@@ -137,13 +138,13 @@
                                                 {% if item.is_free %}
                                                     <li class="accordion__menu-link active">
                                                         <span class="material-icons icon-16pt icon--left text-primary"> play_circle_outline </span>
-                                                        <a class="flex"  href="{% url "lesson" course=object.slug item=item.slug %}">{{ item.title }}</a>
+                                                        <a class="flex"  href="{% url "lesson" course=course.slug item=item.slug %}">{{ item.title }}</a>
                                                         <span class="text-muted">{{ item.duration }}</span>
                                                     </li>
                                                 {% else %}
                                                      <li class="accordion__menu-link active">
                                                         <span class="material-icons icon-16pt icon--left text-muted"> lock </span>
-                                                        <a class="flex" href="{% url "lesson" course=object.slug item=item.slug %}">{{ item.title }}</a>
+                                                        <a class="flex" href="{% url "lesson" course=course.slug item=item.slug %}">{{ item.title }}</a>
                                                         <span class="text-muted">{{ item.duration }}</span>
                                                     </li>
                                                 {% endif %}
@@ -158,7 +159,7 @@
                         <div class="card col-lg-5 p-0 mb-0 justify-content-center border-left-lg">
                             <div class="card-body flex-0 text-center">
                                 {% if user.is_authenticated %}
-                                    {% if object.is_free %}
+                                    {% if course.is_free %}
                                         <div>
                                             <i class="material-icons text-muted">timer</i>
                                         </div>
@@ -200,11 +201,11 @@
                         <div class="row">
                             <div class="col-md-7">
                                 <h4>جزییات دوره</h4>
-                                {{ object.description }}
+                                {{ course.description }}
                             </div>
                             <div class="col-md-5">
                                 <h4>آنچه یاد خواهید گرفت</h4>
-                                {{ object.key_point | safe }}
+                                {{ course.key_point | safe }}
                             </div>
                         </div>
                     </div>
@@ -217,13 +218,13 @@
                     <div class="row">
                         <div class="col-md-7 mb-24pt mb-md-0">
                             <h4>درباره مدرس</h4>
-                            {% for author in object.authors.all %}
+                            {% for author in course.authors.all %}
                             <p class="text-70 mb-24pt">{{ author.userprofile.bio }}</p>
                             {% endfor %}
                         </div>
                         <div class="col-md-5 border-left-md pt-sm-32pt pt-md-0 d-flex flex-column align-items-center justify-content-center">
                             <div class="text-center">
-                                {% for author in object.authors.all %}
+                                {% for author in course.authors.all %}
                                 <h4 class="m-0">{{ author.get_full_name }}</h4>
                                 <p class="lh-1">
                                     <small class="text-muted">{{ author.userprofile.job_title }}</small>

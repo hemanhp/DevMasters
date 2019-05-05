@@ -9,17 +9,17 @@ from .models import UserProfile, User
 class UserProfileAdminInline(admin.StackedInline):
     model = UserProfile
 
+
 @admin.register(User)
 class DevUserAdmin(UserAdmin):
     readonly_fields = ('last_login', 'date_joined')
-    list_display = ('username', 'email', 'first_name', 'last_name', 'is_staff')
+    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    ordering = ('email',)
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
     inlines = (UserProfileAdminInline,)
-
-

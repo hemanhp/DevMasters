@@ -100,9 +100,9 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/accounts/profile"
 LOGOUT_REDIRECT_URL = "/"
-LOGIN_URL = '/users/login'
+LOGIN_URL = '/accounts/login'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -154,3 +154,13 @@ MEDIA_ROOT= os.path.join(PROJECT_DIR, 'media')
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='400695302158-cqft6thcoom0o436mct19nsolmp99q3l.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '1H8_3o-jxXyTlkT9ymiPA00M'
+
+
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Lfn3KEUAAAAAOxhBdBY5a5KGdZe1uW8co1fKsLl'
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'heman.webmaster@gmail.com'
+EMAIL_HOST_PASSWORD = 'H9GU%U1q'
+EMAIL_PORT = 587

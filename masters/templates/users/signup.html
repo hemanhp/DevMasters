@@ -20,11 +20,11 @@
                         </a>
 
                         <!-- Main Navigation -->
-                         <ul class="nav navbar-nav ml-auto d-none d-sm-flex">
-                            <li class="nav-item">
+                        <ul class="nav navbar-nav ml-auto d-none d-sm-flex">
+                            <li class="nav-item active">
                                 <a href="{% url "register" %}" class="nav-link">ثبت نام</a>
                             </li>
-                            <li class="nav-item active">
+                            <li class="nav-item">
                                 <a href="{% url "login" %}" class="nav-link">ورود</a>
                             </li>
                         </ul>
@@ -51,38 +51,37 @@
                 <div class="container d-flex flex-column flex-md-row align-items-center text-center text-md-left">
                     <img src="{% static "images/illustration/student/128/white.svg" %}" class="mr-md-32pt mb-32pt mb-md-0" alt="student">
                     <div class="flex mb-32pt mb-md-0">
-                        <h1 class="text-white mb-0">ورود به سایت</h1>
+                        <h1 class="text-white mb-0">ثبت نام در سایت</h1>
                         <p class="lead measure-lead text-white-50">مدیریت کاربران</p>
                     </div>
-                    <a href="{% url 'register' %}" class="btn btn-outline-white flex-column">
-                        حساب کاربری ندارید؟
-                        <span class="btn__secondary-text">ثبت نام کنید </span>
+                    <a href="{% url 'login' %}" class="btn btn-outline-white flex-column">
+                        قبلا ثبت نام کرده اید؟
+                        <span class="btn__secondary-text">وارد شوید </span>
                     </a>
                 </div>
             </div>
             <div class=" pt-32pt pt-sm-64pt pb-32pt">
 
                 <div class="container page__container">
-                    <form action="{% url 'login' %}" method="post" class="col-md-5 p-0 mx-auto">
+                    <form action="{% url 'register' %}" method="post" class="col-md-5 p-0 mx-auto">
                         {% csrf_token %}
 
+                        {% for field in form %}
+
                         <div class="form-group">
-                            <label for="email">پست الکترونیک:</label>
-                            <input id="email" name="username" type="email" class="form-control" placeholder="نام کاربری خود را وارد کنید">
+                           {{ field.label_tag }}
+                           {{ field }}
+
                         </div>
-                        <div class="form-group">
-                            <label for="password">کلمه عبور:</label>
-                            <input id="password" type="password" name="password" class="form-control" placeholder="کلمه عبور خود را وارد کنید">
-                            <p class="text-right"><a href="{% url "password_reset" %}" class="small">کلمه عبور را فراموش کرده اید؟</a></p>
-                        </div>
+                        {% endfor %}
                         <div class="text-center">
-                            <input type="submit" class="btn btn-lg btn-accent" value="ورود">
+                            <input type="submit" class="btn btn-lg btn-accent" value="ثبت نام">
                         </div>
                         {% if form.errors %}
-                            {{ form.errors }}
+
                             <br>
                             <div class="text-center alert alert-danger">
-                               <p>نام کاربری و یا کلمه عبور صحیح نمی باشد</p>
+                               <p>لطفا اطلاعات خواسته شده را به درستی وارد نمایید</p>
                             </div>
 
                         {% endif %}
