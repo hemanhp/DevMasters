@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Third Parties
+    'nested_inline',
     'social_django',
 
     'masters.apps.statics',
@@ -144,6 +145,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR , 'masters/statics')
 ]
+MEDIA_URL='/media/'
+MEDIA_ROOT= os.path.join(PROJECT_DIR, 'media')
 
 
 

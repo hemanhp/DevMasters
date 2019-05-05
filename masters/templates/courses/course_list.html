@@ -44,7 +44,7 @@
                                 <div class="media media-stack-xs align-items-stretch">
                                     <div class="media-left media__thumbnail mr-0">
                                         <a href="{% url "course_detail" slug=course.slug %}" class="js-image" data-position="center">
-                                            <img src="assets/images/paths/angular_430x168.png" alt="course">
+                                            <img src="{{ course.thumbnail.url }}" alt="course">
                                             <span class="overlay__content">
                                                 <span class="overlay__action d-flex flex-column text-center">
                                                     <i class="material-icons">play_circle_outline</i>
@@ -53,7 +53,7 @@
                                             </span>
                                         </a>
 
-                                        <span class="corner-ribbon corner-ribbon--default-left-top corner-ribbon--shadow bg-accent text-white">NEW</span>
+                                        <span class="corner-ribbon corner-ribbon--default-left-top corner-ribbon--shadow bg-accent text-white">جدید</span>
 
                                     </div>
                                     <div class="media-body card-body">
@@ -61,14 +61,15 @@
                                             <div class="flex">
                                                 <a class="card-title m-0" href="#">{{ course.title }}</a>
                                                 <p class="d-flex flex-wrap lh-1 mb-16pt">
-                                                    <small class="text-50 font-weight-bold mr-8pt">Elijah Murray</small>
-                                                    <small class="text-50">Software Engineer and Developer</small>
+                                                    {% for author in course.authors.all %}
+                                                    <small class="text-50 font-weight-bold mr-8pt">{{ author.get_full_name}}</small>
+                                                    {% endfor %}
                                                 </p>
                                             </div>
                                             <a href="course.html" class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite</a>
                                         </div>
 
-                                        <p class="text-50 course-list-item__excerpt">  {{ course.description }}</p>
+                                        <p class="text-50 course-list-item__excerpt">  {{ course.abstract }}</p>
 
                                         <div class="d-flex align-items-center">
                                             <div class="flex d-flex lh-1">

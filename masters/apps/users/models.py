@@ -10,7 +10,6 @@ import uuid
 # Create your models here.
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4())
-
     class Meta:
         verbose_name = _('User')
         verbose_name_plural = _('Users')
@@ -18,7 +17,8 @@ class User(AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, verbose_name=_("User"), on_delete=models.CASCADE, primary_key=True)
-    bio = models.TextField(_("Bio"),max_length=500, blank=True)
+    bio = models.TextField(_("Bio"), max_length=500, blank=True)
+    job_title = models.CharField(_("Job Title"), max_length=255, blank=True)
     linkedin = models.CharField(_("Linkedin"), blank=True, max_length=255)
     twitter = models.CharField(_("Twitter"), blank=True, max_length=255)
     instagram = models.CharField(_("instagram"), blank=True, max_length=255)

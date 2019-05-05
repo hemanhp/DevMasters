@@ -1,0 +1,251 @@
+{%  extends "base.html" %}
+{% load static%}
+
+
+{% block content %}
+
+         <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+        <!-- Header -->
+
+        {% include "top.html" %}
+        <!-- // END Header -->
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout js-mdk-header-layout">
+
+        <!-- Header -->
+
+        <div id="header" class="mdk-header bg-dark js-mdk-header mb-0" data-effects="waterfall blend-background" data-fixed data-condenses>
+            <div class="mdk-header__content">
+
+                <div class="navbar navbar-expand-sm navbar-dark bg-dark pr-0 pr-md-16pt" id="default-navbar" data-primary>
+
+                    <!-- Navbar toggler -->
+                    <button class="navbar-toggler navbar-toggler-right d-block d-md-none" type="button" data-toggle="sidebar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Navbar Brand -->
+                    <a href="index.html" class="navbar-brand">
+                        <img class="navbar-brand-icon mr-0 mr-md-8pt" src="assets/images/logo/white-100@2x.png" width="30" alt="Tutorio">
+                        <span class="d-none d-md-block">Tutorio</span>
+                    </a>
+
+                    <button class="btn btn-black mr-16pt" data-toggle="modal" data-target="#courses">Courses <i class="material-icons">arrow_drop_down</i></button>
+
+                    <form class="search-form search-form--black search-form-courses d-none d-md-flex" action="library-filters.html">
+                        <input type="text" class="form-control" placeholder="What would you like to learn?">
+                        <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
+                    </form>
+
+                    <!-- Main Navigation -->
+
+                    <ul class="nav navbar-nav ml-auto flex-nowrap" style="white-space: nowrap;">
+                        <li class="ml-16pt nav-item">
+                            <a href="login.html" class="nav-link">
+                                <i class="material-icons">lock_open</i>
+                                <span class="sr-only">Login</span>
+                            </a>
+                        </li>
+                        <li class="d-none d-sm-flex nav-item">
+                            <a href="pricing.html" class="btn btn-accent">Get started</a>
+                        </li>
+                    </ul>
+
+
+
+                    <!-- // END Main Navigation -->
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- // END Header -->
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content page-content pb-0">
+            <div class="mdk-box bg-dark mdk-box--bg-gradient-primary js-mdk-box mb-0" data-effects="blend-background">
+                <div class="mdk-box__content">
+                    <div class="hero py-64pt text-center text-sm-left">
+                        <div class="container">
+                            <h1 class="text-white">{{ object.title }}</h1>
+                            <p class="lead text-white-50 measure-hero-lead">{{ object.abstract }}</p>
+                            <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
+                                <a href="pricing.html" class="btn btn-white">عضویت در دوره</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navbar navbar-expand-sm navbar-submenu navbar-light navbar-list p-0 m-0 align-items-center">
+                <div class="container page__container">
+                    <ul class="nav navbar-nav flex align-items-sm-center">
+                        <li class="nav-item navbar-list__item">
+                            <div class="media align-items-center">
+                                <div class="media-body">
+                                    {% for author in object.authors.all %}
+                                    <a class="card-title m-0" href="instructor-profile.html">{{ author.get_full_name }}</a>
+                                    {% endfor %}
+                                    <p class="text-50 lh-1 mb-0">مدرس</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item navbar-list__item">
+                            <i class="material-icons text-muted icon--left">schedule</i>
+                            {{ object.time_duration }}
+                        </li>
+                        <li class="nav-item navbar-list__item">
+                            <i class="material-icons text-muted icon--left">assessment</i>
+                            {{ object.level }}
+                        </li>
+                        <li class="nav-item ml-sm-auto text-sm-center flex-column navbar-list__item">
+                            <div class="alert alert-secondary">
+                               {% if object.is_free %}
+                                   رایگان
+                                {% else %}
+                                {% endif %}
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="page-section border-bottom-2">
+                <div class="container page__container">
+
+                    <h4>سرفصل مطالب</h4>
+                    <div class="card-group card-group--lg-up mb-0">
+                        <div class="card col-lg-7 p-0">
+
+
+                            <ul class="accordion accordion--boxed js-accordion list-group-flush" id="course-toc">
+
+                                {% for section in object.coursesection_set.all %}
+                                <li class="accordion__item open">
+                                    <a class="accordion__toggle" data-toggle="collapse" data-parent="#course-toc" href="#course-toc-1">
+                                        <span class="flex">{{ section.title }}</span>
+                                        <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                                    </a>
+                                    <div class="accordion__menu">
+                                        <ul class="list-unstyled collapse show" id="course-toc-1">
+                                            {% for item in section.coursesectionitem_set.all %}
+                                                {% if item.is_free %}
+                                                    <li class="accordion__menu-link active">
+                                                        <span class="material-icons icon-16pt icon--left text-primary"> play_circle_outline </span>
+                                                        <a class="flex" href="lesson.html">{{ item.title }}</a>
+                                                        <span class="text-muted">{{ item.duration }}</span>
+                                                    </li>
+                                                {% else %}
+                                                     <li class="accordion__menu-link active">
+                                                        <span class="material-icons icon-16pt icon--left text-muted"> lock </span>
+                                                        <a class="flex" href="lesson.html">{{ item.title }}</a>
+                                                        <span class="text-muted">{{ item.duration }}</span>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                        <div class="card col-lg-5 p-0 mb-0 justify-content-center border-left-lg">
+                            <div class="card-body flex-0 text-center">
+                                {% if user.is_authenticated %}
+                                    {% if object.is_free %}
+                                        <div>
+                                            <i class="material-icons text-muted">timer</i>
+                                        </div>
+                                        <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
+                                        <p class="text-70 mb-24pt">با عضویت در این دوره می توانید به متریال های دوره
+                                            دسترسی داشته باشید</p>
+                                        <a href="{% url "login" %}" class="btn btn-primary mb-8pt">عضویت در
+                                            دوره</a>
+                                    {% else %}
+                                        <div>
+                                            <i class="material-icons text-muted">timer</i>
+                                        </div>
+                                        <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
+                                        <p class="text-70 mb-24pt">با عضویت در این دوره می توانید به متریال های دوره
+                                            دسترسی داشته باشید</p>
+                                        <a href="{% url "login" %}" class="btn btn-outline-primary mb-8pt">عضویت در
+                                            دوره</a>
+                                    {% endif %}
+                                {% else %}
+                                    <div>
+                                        <i class="material-icons text-muted">timer</i>
+                                    </div>
+                                    <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
+                                    <p class="text-70 mb-24pt">برای عضویت در دوره ها بایستی وارد سیستم شوید</p>
+                                    <a href="{% url "login" %}" class="btn btn-outline-primary mb-8pt">ورود به سایت</a>
+                                    <p>حساب کاربری ندارید؟ <a href="{% url "register" %}">ثبت نام</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-dark">
+
+
+                <div class="page-separator-mask page-section pb-0 ">
+                    <div class="container page__container">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h4>جزییات دوره</h4>
+                                {{ object.description }}
+                            </div>
+                            <div class="col-md-5">
+                                <h4>آنچه یاد خواهید گرفت</h4>
+                                {{ object.key_point | safe }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="page-section bg-dark border-bottom-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7 mb-24pt mb-md-0">
+                            <h4>درباره مدرس</h4>
+                            {% for author in object.authors.all %}
+                            <p class="text-70 mb-24pt">{{ author.userprofile.bio }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-5 border-left-md pt-sm-32pt pt-md-0 d-flex flex-column align-items-center justify-content-center">
+                            <div class="text-center">
+                                {% for author in object.authors.all %}
+                                <h4 class="m-0">{{ author.get_full_name }}</h4>
+                                <p class="lh-1">
+                                    <small class="text-muted">{{ author.userprofile.job_title }}</small>
+                                </p>
+                                <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
+                                    <a href="instructor-profile.html" class="btn btn-outline-secondary">مشاهده پروفایل</a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- // END Header Layout Content -->
+
+    </div>
+        <!-- // END Header Layout Content -->
+
+    </div>
+    <!-- // END Header Layout -->
+{% endblock %}
