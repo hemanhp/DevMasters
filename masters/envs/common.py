@@ -39,15 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 
     #Third Parties
-    'nested_inline',
     'social_django',
 
     'masters.apps.statics',
     'masters.apps.courses',
     'masters.apps.users'
 ]
+
+SITE_ID = 1
+SITE_PROTOCOL = "https"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

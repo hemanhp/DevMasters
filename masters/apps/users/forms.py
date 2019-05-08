@@ -19,18 +19,21 @@ class SignUpForm(forms.ModelForm):
     email = forms.CharField(
         label="پست الکترونیک ",
         required=True,
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder':'ایمیل خود را به عنوان نام کاربری در این وب سایت وارد نمایید'}),
+        widget=forms.EmailInput(attrs={'class': 'form-control',
+                                       'placeholder': 'ایمیل خود را به عنوان نام کاربری در این وب سایت وارد نمایید'}),
 
     )
     password1 = forms.CharField(
         label="کلمه عبور",
         strip=False,
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'کلمه عبور  مورد نظر خود را وارد نمایید'}),
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'کلمه عبور  مورد نظر خود را وارد نمایید'}),
         help_text=password_validation.password_validators_help_text_html(),
     )
     password2 = forms.CharField(
         label="تایپ مجدد کلمه عبور",
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder':'کلمه عبور  مورد نظر خود را  مجددا وارد نمایید'}),
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'کلمه عبور  مورد نظر خود را  مجددا وارد نمایید'}),
         strip=False,
         help_text=_("Enter the same password as before, for verification."),
     )

@@ -7,7 +7,7 @@ from masters.apps.courses.models import Course
 # Create your views here.
 def home_view(request):
     context = {
-        'courses': Course.objects.all()
+        'courses': Course.objects.all().filter(published=True)
     }
     return render(request, 'statics/home.html', context)
 

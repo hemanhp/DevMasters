@@ -48,7 +48,7 @@
                                             <span class="overlay__content">
                                                 <span class="overlay__action d-flex flex-column text-center">
                                                     <i class="material-icons">play_circle_outline</i>
-                                                    <small>Preview course</small>
+                                                    <small>مشاهده دوره</small>
                                                 </span>
                                             </span>
                                         </a>
@@ -59,32 +59,28 @@
                                     <div class="media-body card-body">
                                         <div class="d-flex">
                                             <div class="flex">
-                                                <a class="card-title m-0" href="#">{{ course.title }}</a>
+                                                <a class="card-title m-0"  href="{% url "course_detail" slug=course.slug %}">{{ course.title }}</a>
                                                 <p class="d-flex flex-wrap lh-1 mb-16pt">
                                                     {% for author in course.authors.all %}
                                                     <small class="text-50 font-weight-bold mr-8pt">{{ author.get_full_name}}</small>
                                                     {% endfor %}
                                                 </p>
                                             </div>
-                                            <a href="course.html" class="ml-4pt material-icons text-20 card-course__icon-favorite">favorite</a>
                                         </div>
 
                                         <p class="text-50 course-list-item__excerpt">  {{ course.abstract }}</p>
 
                                         <div class="d-flex align-items-center">
                                             <div class="flex d-flex lh-1">
-                                                <small class="text-50 mr-8pt">6 hours</small>
-                                                <small class="text-50">13 lessons</small>
+                                                <small class="text-50 mr-8pt">{{ course.time_duration }}</small>
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <small class="text-50 mr-8pt">4.7</small>
-                                                <div class="rating flex">
-                                                    <span class="rating__item"><span class="material-icons">star</span></span>
-                                                    <span class="rating__item"><span class="material-icons">star</span></span>
-                                                    <span class="rating__item"><span class="material-icons">star</span></span>
-                                                    <span class="rating__item"><span class="material-icons">star</span></span>
-                                                    <span class="rating__item"><span class="material-icons">star_border</span></span>
-                                                </div>
+                                            <div class="d-flex align-items-center btn btn-flush">
+                                               {% if course.is_free %}
+                                                   رایگان
+                                                {% else %}
+
+                                                {% endif %}
+
                                             </div>
                                         </div>
                                     </div>
@@ -113,11 +109,9 @@
                                             </a>
                                             <nav class="accordion__menu collapse show" id="library-all">
                                                 <a class="accordion__menu-link active" href="{% url "course_list" %}">همه گروه ها</a>
-                                                <a class="accordion__menu-link" href="library-filters-development.html">زبان های برنامه نویسی</a>
-                                                <a class="accordion__menu-link" href="library-filters-development.html">وب</a>
-                                                <a class="accordion__menu-link" href="library-filters-development.html">Android</a>
-                                                <a class="accordion__menu-link" href="library-filters-development.html">iOS</a>
-                                                <a class="accordion__menu-link" href="library-filters-development.html">بانک های اطلاعاتی</a>
+                                                {% for category in categories %}
+                                                <a class="accordion__menu-link" href="{% url "course_list" %}?category={{ category.slug }}">{{ category.title }}</a>
+                                                {% endfor %}
                                             </nav>
                                         </li>
                                     </ul>

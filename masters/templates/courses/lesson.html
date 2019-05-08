@@ -1,6 +1,9 @@
 {%  extends "base.html" %}
 {% load static%}
 
+{% block headercss %}
+        <link type="text/css" href="{% static "vendor/plyr/plyr.css" %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 
@@ -90,17 +93,13 @@
                     <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
                          data-domfactory-upgraded="player">
                         <div class="player embed-responsive-item">
-                            <div class="player__content">
-                                <div class="player__image"
-                                     style="--player-image: url(assets/images/illustration/player.svg)"></div>
-                                <a href="" class="player__play">
-                                    <span class="material-icons">play_arrow</span>
-                                </a>
-                            </div>
+
+                            <video id="player" playsinline controls>
+    <source src="{{ item.public_url }}" type="video/mp4" />
+
+    <!-- Captions are optional -->
+</video>
                             <div class="player__embed d-none">
-                                <iframe class="embed-responsive-item"
-                                        src="https://player.vimeo.com/video/97243285?title=0&amp;byline=0&amp;portrait=0"
-                                        allowfullscreen=""></iframe>
                             </div>
                         </div>
                     </div>
@@ -135,7 +134,7 @@
                                     <div class="accordion__menu">
                                         <ul class="list-unstyled collapse show" id="course-toc-1">
                                             {% for item in section.coursesectionitem_set.all %}
-                                                {% if item.is_free %}
+                                                {% if item.is_free or enrolled %}
                                                     <li class="accordion__menu-link active">
                                                         <span class="material-icons icon-16pt icon--left text-primary"> play_circle_outline </span>
                                                         <a class="flex"  href="{% url "lesson" course=course.slug item=item.slug %}">{{ item.title }}</a>
@@ -205,7 +204,12 @@
                             </div>
                             <div class="col-md-5">
                                 <h4>آنچه یاد خواهید گرفت</h4>
-                                {{ course.key_point | safe }}
+                                {% for keypoint in object.coursekeypoint_set.all %}
+                                    <li class="d-flex align-items-center">
+                                        <span class="material-icons text-50 mr-8pt">check</span>
+                                        <span class="text-70">{{ keypoint.title }}</span>
+                                    </li>
+                                   {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -249,4 +253,13 @@
 
     </div>
     <!-- // END Header Layout -->
+{% endblock %}
+
+
+
+{% block footerjs %}
+    <script src="{% static "vendor/plyr/plyr.polyfilled.js" %}"></script>
+<script>
+    const player = new Plyr('#player');
+</script>
 {% endblock %}

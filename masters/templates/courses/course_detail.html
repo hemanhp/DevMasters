@@ -17,51 +17,7 @@
 
         <!-- Header -->
 
-        <div id="header" class="mdk-header bg-dark js-mdk-header mb-0" data-effects="waterfall blend-background" data-fixed data-condenses>
-            <div class="mdk-header__content">
-
-                <div class="navbar navbar-expand-sm navbar-dark bg-dark pr-0 pr-md-16pt" id="default-navbar" data-primary>
-
-                    <!-- Navbar toggler -->
-                    <button class="navbar-toggler navbar-toggler-right d-block d-md-none" type="button" data-toggle="sidebar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <!-- Navbar Brand -->
-                    <a href="index.html" class="navbar-brand">
-                        <img class="navbar-brand-icon mr-0 mr-md-8pt" src="assets/images/logo/white-100@2x.png" width="30" alt="Tutorio">
-                        <span class="d-none d-md-block">Tutorio</span>
-                    </a>
-
-                    <button class="btn btn-black mr-16pt" data-toggle="modal" data-target="#courses">Courses <i class="material-icons">arrow_drop_down</i></button>
-
-                    <form class="search-form search-form--black search-form-courses d-none d-md-flex" action="library-filters.html">
-                        <input type="text" class="form-control" placeholder="What would you like to learn?">
-                        <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
-                    </form>
-
-                    <!-- Main Navigation -->
-
-                    <ul class="nav navbar-nav ml-auto flex-nowrap" style="white-space: nowrap;">
-                        <li class="ml-16pt nav-item">
-                            <a href="login.html" class="nav-link">
-                                <i class="material-icons">lock_open</i>
-                                <span class="sr-only">Login</span>
-                            </a>
-                        </li>
-                        <li class="d-none d-sm-flex nav-item">
-                            <a href="pricing.html" class="btn btn-accent">Get started</a>
-                        </li>
-                    </ul>
-
-
-
-                    <!-- // END Main Navigation -->
-
-                </div>
-
-            </div>
-        </div>
+        {% include "top-mobile.html" %}
 
         <!-- // END Header -->
 
@@ -103,7 +59,7 @@
                             {{ object.level }}
                         </li>
                         <li class="nav-item ml-sm-auto text-sm-center flex-column navbar-list__item">
-                            <div class="alert alert-secondary">
+                            <div class="btn btn-success">
                                {% if object.is_free %}
                                    رایگان
                                 {% else %}
@@ -158,24 +114,27 @@
                         <div class="card col-lg-5 p-0 mb-0 justify-content-center border-left-lg">
                             <div class="card-body flex-0 text-center">
                                 {% if user.is_authenticated %}
-                                    {% if object.is_free %}
-                                        <div>
-                                            <i class="material-icons text-muted">timer</i>
-                                        </div>
-                                        <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
-                                        <p class="text-70 mb-24pt">با عضویت در این دوره می توانید به متریال های دوره
-                                            دسترسی داشته باشید و از به روزرسانی های آن با خبر شوید</p>
-                                        <a href="{% url "login" %}" class="btn btn-primary mb-8pt">عضویت در
-                                            دوره</a>
+                                    {% if enrolled %}
+                                          <div>
+                                                <i class="material-icons text-muted">timer</i>
+                                            </div>
+                                            <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
+                                            <p class="text-70 mb-24pt">شما در این دوره عضو هستید</p>
+
                                     {% else %}
-                                        <div>
-                                            <i class="material-icons text-muted">timer</i>
-                                        </div>
-                                        <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
-                                        <p class="text-70 mb-24pt">با عضویت در این دوره می توانید به متریال های دوره
-                                            دسترسی داشته باشید</p>
-                                        <a href="{% url "login" %}" class="btn btn-outline-primary mb-8pt">عضویت در
-                                            دوره</a>
+                                        {% if object.is_free %}
+                                            <div>
+                                                <i class="material-icons text-muted">timer</i>
+                                            </div>
+                                            <h4 class="my-8pt"><strong>دسترسی به دوره ها</strong></h4>
+                                            <p class="text-70 mb-24pt">با عضویت در این دوره می توانید به متریال های دوره
+                                                دسترسی داشته باشید و از به روزرسانی های آن با خبر شوید</p>
+                                            <a href="{% url "enrollment" course=object.slug %}"
+                                               class="btn btn-primary mb-8pt">عضویت در
+                                                دوره</a>
+                                        {% else %}
+
+                                        {% endif %}
                                     {% endif %}
                                 {% else %}
                                     <div>
@@ -204,7 +163,14 @@
                             </div>
                             <div class="col-md-5">
                                 <h4>آنچه یاد خواهید گرفت</h4>
-                                {{ object.key_point | safe }}
+                               <ul class="list-unstyled">
+                                   {% for keypoint in object.coursekeypoint_set.all %}
+                                    <li class="d-flex align-items-center">
+                                        <span class="material-icons text-50 mr-8pt">check</span>
+                                        <span class="text-70">{{ keypoint.title }}</span>
+                                    </li>
+                                   {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>
