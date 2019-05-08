@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib.auth import get_user_model
 from .forms import SignUpForm
+from masters.apps.courses.models import CourseEnrollment
 User = get_user_model()
 
 class DevLoginView(LoginView):
@@ -40,7 +41,10 @@ class ProfileDashboardView(LoginRequiredMixin,View):
 
 class ProfileCourses(LoginRequiredMixin,View):
     def get(self, request):
-        return render(request, 'users/profile_courses.html')
+        context = {
+            'courses': CourseEnrollment.objects.all().filter(user_id=request.user.id)
+        }
+        return render(request, 'users/profile_courses.html', context)
 
 
 class EditProfile(LoginRequiredMixin,View):

@@ -8,8 +8,6 @@
     <div class="mdk-header-layout js-mdk-header-layout">
 
         <!-- Header -->
-
-        {% include "top.html" %}
         <!-- // END Header -->
 
         <!-- Header Layout Content -->
@@ -30,7 +28,9 @@
                             <h1 class="text-white">{{ object.title }}</h1>
                             <p class="lead text-white-50 measure-hero-lead">{{ object.abstract }}</p>
                             <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-                                <a href="pricing.html" class="btn btn-white">عضویت در دوره</a>
+                                {% if not enrolled %}
+                                <a href="{% url "enrollment" course=object.slug %}" class="btn btn-white">عضویت در دوره</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <div class="media align-items-center">
                                 <div class="media-body">
                                     {% for author in object.authors.all %}
-                                    <a class="card-title m-0" href="instructor-profile.html">{{ author.get_full_name }}</a>
+                                    <a class="card-title m-0" href="#">{{ author.get_full_name }}</a>
                                     {% endfor %}
                                     <p class="text-50 lh-1 mb-0">مدرس</p>
                                 </div>
@@ -90,8 +90,8 @@
                                     <div class="accordion__menu">
                                         <ul class="list-unstyled collapse show" id="course-toc-1">
                                             {% for item in section.coursesectionitem_set.all %}
-                                                {% if item.is_free %}
-                                                    <li class="accordion__menu-link active">
+                                                {% if item.is_free or enrolled %}
+                                                    <li class="accordion__menu-link">
                                                         <span class="material-icons icon-16pt icon--left text-primary"> play_circle_outline </span>
                                                         <a class="flex"  href="{% url "lesson" course=object.slug item=item.slug %}">{{ item.title }}</a>
                                                         <span class="text-muted">{{ item.duration }}</span>
@@ -195,7 +195,7 @@
                                     <small class="text-muted">{{ author.userprofile.job_title }}</small>
                                 </p>
                                 <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-                                    <a href="instructor-profile.html" class="btn btn-outline-secondary">مشاهده پروفایل</a>
+                                    <a href="#" class="btn btn-outline-secondary">مشاهده پروفایل</a>
                                 </div>
                                 {% endfor %}
                             </div>

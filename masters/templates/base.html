@@ -49,6 +49,11 @@
 
     <!-- Header Layout -->
     <div class="mdk-header-layout js-mdk-header-layout">
+        {% if user.is_authenticated %}
+            {% include 'top-autehnticated.html' %}
+        {% else %}
+            {% include "top.html" %}
+        {% endif %}
 
 
     {% block content %}
@@ -73,7 +78,7 @@
                                 <h4 class="">یادگیری</h4>
                                 <nav class="nav nav-links nav--flush flex-column">
                                     <a class="nav-link" href="{% url "course_list" %}">دوره ها</a>
-                                    <a class="nav-link" href="paths.html">مسیرهای یادگیری</a>
+                                    <a class="nav-link" href="#">مسیرهای یادگیری</a>
                                 </nav>
                             </div>
                             <div class="col-6 col-md-4 mb-24pt mb-md-0">
@@ -144,6 +149,24 @@
     <script src="{% static "js/hljs.js" %}"></script>
 
     {% block footerjs %}{% endblock %}
+
+    {% if not debug %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-139909121-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+
+            gtag('js', new Date());
+
+            gtag('config', 'UA-139909121-1');
+        </script>
+
+
+    {% endif %}
 
 </body>
 </html>

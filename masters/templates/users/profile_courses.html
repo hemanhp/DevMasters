@@ -9,7 +9,6 @@
 
         <!-- Header -->
 
-        {% include "top-autehnticated.html" %}
         <!-- // END Header -->
 
         <div class="mdk-header-layout__content page-content ">
@@ -48,6 +47,71 @@
             </div>
 
 
+            <div class="mdk-drawer-layout__content">
+                    <div class="page-section">
+                        <div class="container page__container">
+                            <div class="page-heading">
+                                <h4>دوره ها</h4>
+                                <p class="ml-sm-auto text-70 mb-0"><strong>{{ courses.count }}</strong> دوره</p>
+                            </div>
+
+
+
+                            {% for item in courses %}
+                                <div class="card course-list-item o-hidden overlay js-overlay" data-trigger="hover">
+                                <div class="media media-stack-xs align-items-stretch">
+                                    <div class="media-left media__thumbnail mr-0">
+                                        <a href="{% url "course_detail" slug=item.course.slug %}" class="js-image" data-position="center">
+                                            <img src="{{ item.course.thumbnail.url }}" alt="course">
+                                            <span class="overlay__content">
+                                                <span class="overlay__action d-flex flex-column text-center">
+                                                    <i class="material-icons">play_circle_outline</i>
+                                                    <small>مشاهده دوره</small>
+                                                </span>
+                                            </span>
+                                        </a>
+
+                                        <span class="corner-ribbon corner-ribbon--default-left-top corner-ribbon--shadow bg-accent text-white">جدید</span>
+
+                                    </div>
+                                    <div class="media-body card-body">
+                                        <div class="d-flex">
+                                            <div class="flex">
+                                                <a class="card-title m-0"  href="{% url "course_detail" slug=item.course.slug %}">{{ item.course.title }}</a>
+                                                <p class="d-flex flex-wrap lh-1 mb-16pt">
+                                                    {% for author in item.course.authors.all %}
+                                                    <small class="text-50 font-weight-bold mr-8pt">{{ author.get_full_name}}</small>
+                                                    {% endfor %}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <p class="text-50 course-list-item__excerpt">  {{ item.course.abstract }}</p>
+
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex d-flex lh-1">
+                                                <small class="text-50 mr-8pt">{{ item.course.time_duration }}</small>
+                                            </div>
+                                            <div class="d-flex align-items-center btn btn-flush">
+                                               {% if item.course.is_free %}
+                                                   رایگان
+                                                {% else %}
+
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% empty %}
+                                <li>No articles yet.</li>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
 
 
 

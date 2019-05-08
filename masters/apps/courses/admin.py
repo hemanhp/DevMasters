@@ -28,6 +28,12 @@ class CourseCategoryAdmin(admin.ModelAdmin):
 @admin.register(CourseSection)
 class CourseSectionAdmin(admin.ModelAdmin):
     inlines = (CourseSectionItemInlineAdmin,)
+    list_display = ('course_title', 'title')
+
+    def course_title(self, obj):
+        return obj.course.title
+    course_title.short_description = 'Course'
+    course_title.admin_order_field = 'course__title'
 
 
 @admin.register(Course)
@@ -38,4 +44,4 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(CourseEnrollment)
 class CourseEnrollmentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'course',)
+    list_display = ('user', 'course', 'enroll_date', 'enroll_type')

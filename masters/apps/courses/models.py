@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.translation import gettext_noop, gettext_lazy as _
 from django.template.defaultfilters import slugify
 from django.contrib.auth import get_user_model
@@ -111,12 +112,17 @@ class CourseSectionItem(models.Model):
 
 
 class CourseEnrollment(models.Model):
+    MANUAL = 'manual'
+    ENROLL_TYPE_CHOICE = (
+        (MANUAL, _("Manual"),),
+    )
     user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.CASCADE)
     course = models.ForeignKey(Course, verbose_name=_("Course"), on_delete=models.CASCADE)
+    enroll_date = models.DateTimeField(_("Enroll Date"), default=timezone.now)
+    enroll_type = models.CharField(_("Enroll Type"), max_length=25, choices=ENROLL_TYPE_CHOICE, default=MANUAL)
 
     class Meta:
         unique_together = ('user', 'course',)
+        ordering = ['-enroll_date']
         verbose_name = _("Course Enrollment")
         verbose_name_plural = _("Course Enrollments")
-
-
