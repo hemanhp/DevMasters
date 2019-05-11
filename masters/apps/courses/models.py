@@ -32,6 +32,7 @@ class Course(models.Model):
     description = models.TextField(verbose_name=_("Description"), blank=True)
     authors = models.ManyToManyField(get_user_model())
     categories = models.ManyToManyField(CourseCategory)
+    pre_requirements = models.ManyToManyField("Course",related_name="prereqs")
     thumbnail = models.ImageField(_("Thumbnail"), upload_to="thumbnails/", null=True, blank=True)
     is_free = models.BooleanField(_("Is Free"), default=False)
     price = models.IntegerField(_("Price"), null=True, blank=True)

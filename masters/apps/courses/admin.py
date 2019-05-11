@@ -1,7 +1,5 @@
 from django.contrib import admin
 from .models import Course, CourseKeyPoint, CourseSection, CourseSectionItem, CourseCategory, CourseEnrollment
-from nested_inline.admin import NestedStackedInline, NestedModelAdmin
-
 
 # Register your models here.
 class CourseSectionItemInlineAdmin(admin.StackedInline):
@@ -32,6 +30,7 @@ class CourseSectionAdmin(admin.ModelAdmin):
 
     def course_title(self, obj):
         return obj.course.title
+
     course_title.short_description = 'Course'
     course_title.admin_order_field = 'course__title'
 
