@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-md-4 text-md-left">
                         <p class="text-70 brand">
-                            <img class="brand-icon" src="{% static "images/logo/black-70@2x.png" %}" width="30" alt="Tutorio"> DevMasters.ir
+                            <img class="brand-icon" src="{% static "images/logo/black-70@2x.png" %}" width="30" alt="DevMasters.ir"> DevMasters.ir
                         </p>
                         <p class="text-muted mb-0 mb-lg-16pt">دومستر یک پلتفرم آموزشی است برای برنامه نویسانی است که قصد دارند مفاهیم مدرن برنامه نویسی را سریع و آسان یاد بگیرند</p>
                     </div>
@@ -116,6 +116,46 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+
+     <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+        <div class="mdk-drawer__content">
+            <div class="sidebar sidebar-dark sidebar-left" data-perfect-scrollbar>
+                <div class="sidebar-p-a sidebar-b-b sidebar-m-b pt-0">
+
+                    <!-- Brand -->
+                    <a href="{% url "home" %}" class="sidebar-brand">
+                        <img class="sidebar-brand-icon" src="{% static "images/logo/black-70@2x.png" %}"  width="30" alt="DevMasters.ir">
+                        <span>DevMasters.ir</span>
+                    </a>
+                    <!-- // END Brand -->
+
+                    <!-- Search -->
+                    <form action="" class="search-form search-form--black">
+                        <input type="text" class="form-control" placeholder="جستجو">
+                        <button class="btn" type="submit" role="button"><i class="material-icons">search</i></button>
+                    </form>
+
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="{% url "home" %}">خانه</a>
+                    </li>
+                </ul>
+
+                <ul class="sidebar-menu">
+                    <li class="sidebar-menu-item">
+                        <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="{% url "course_list" %}">دوره ها</a>
+                        </li>
+
+                    </li>
+                </ul>
+
             </div>
         </div>
     </div>
