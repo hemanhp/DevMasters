@@ -8,4 +8,6 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
-STATIC_ROOT = "/avat/public/devmaster.ir/static/"
+STATIC_ROOT = "/avat/public/devmasters.ir/static/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = "/avat/public/devmasters.ir/media/"

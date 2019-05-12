@@ -1,5 +1,6 @@
 {%  extends "base.html" %}
 {% load static%}
+{% block title %}   {{ item.title }} - {{ course.title }}{% endblock %}
 
 {% block headercss %}
         <link type="text/css" href="{% static "vendor/plyr/plyr.css" %}" rel="stylesheet">
@@ -43,22 +44,35 @@
             </div>
             <div class="bg-gradient-primary pb-lg-64pt py-32pt">
                 <div class="container">
-                    <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
-                         data-domfactory-upgraded="player">
-                        <div class="player embed-responsive-item">
-                            {% if item.is_free or enrolled %}
-                            <video id="player" playsinline controls>
-                                <source src="{{ item.public_url }}" type="video/mp4"/>
 
-                                <!-- Captions are optional -->
-                            </video>
-                            {% else %}
-                                <div class="player__image"> برای پخش این ویدیو بایستی در دوره عضو شوید</div>
-                            {% endif %}
-                            <div class="player__embed d-none">
+                    {% if item.is_free %}
+                        <style>.h_iframe-aparat_embed_frame{position:relative;}.h_iframe-aparat_embed_frame .ratio{display:block;width:100%;height:auto;}.h_iframe-aparat_embed_frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;}</style><div class="h_iframe-aparat_embed_frame"><span style="display: block;padding-top: 57%"></span><iframe src="{{ item.public_url }}" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>
+                    {% elif enrolled %}
+                        <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
+                             data-domfactory-upgraded="player">
+                            <div class="player embed-responsive-item">
+
+                                <video id="player" playsinline controls>
+                                    <source src="{{ item.public_url }}" type="video/mp4"/>
+
+                                    <!-- Captions are optional -->
+                                </video>
+                                <div class="player__embed d-none">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
+                             data-domfactory-upgraded="player">
+                            <div class="player embed-responsive-item">
+
+                                <div class="player__image"> برای پخش این ویدیو بایستی در دوره عضو شوید</div>
+                                <div class="player__embed d-none">
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
 
                     <div class="d-flex flex-wrap align-items-end mb-16pt">
                         <h1 class="text-white flex m-0">{{ item.title}}</h1>
@@ -194,7 +208,7 @@
                                     <small class="text-muted">{{ author.userprofile.job_title }}</small>
                                 </p>
                                 <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-                                    <a href="instructor-profile.html" class="btn btn-outline-secondary">مشاهده پروفایل</a>
+{#                                    <a href="instructor-profile.html" class="btn btn-outline-secondary">مشاهده پروفایل</a>#}
                                 </div>
                                 {% endfor %}
                             </div>

@@ -1,6 +1,6 @@
 {%  extends "base.html" %}
 {% load static%}
-
+{% block title %}   {{ course.title }}- آموزش های مدرن برای برنامه نویسان مدرن  {% endblock %}
 
 {% block content %}
 
@@ -70,7 +70,11 @@
                     </ul>
                 </div>
             </div>
-
+            {% if object.in_progress %}
+                <div class="page-section border-bottom-2">
+                <div class="alert alert-light text-center"> این دوره در حال تکمیل است و بخش های جدید به مرور اضافه می شود</div>
+                </div>
+            {% endif %}
             <div class="page-section border-bottom-2">
                 <div class="container page__container">
 
@@ -195,7 +199,7 @@
                                     <small class="text-muted">{{ author.userprofile.job_title }}</small>
                                 </p>
                                 <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-                                    <a href="#" class="btn btn-outline-secondary">مشاهده پروفایل</a>
+{#                                    <a href="#" class="btn btn-outline-secondary">مشاهده پروفایل</a>#}
                                 </div>
                                 {% endfor %}
                             </div>

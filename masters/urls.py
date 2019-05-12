@@ -20,6 +20,7 @@ from django.urls import path, include
 from masters.apps.statics.views import home_view
 from django.conf.urls.static import static
 from masters.apps.courses import sitemaps as course_sitemaps
+from masters.apps.statics import  sitemaps as static_sitemaps
 
 urlpatterns = [
     path('', home_view, name="home"),
@@ -31,6 +32,7 @@ urlpatterns = [
 ]
 
 sitemaps = {
+    'static': static_sitemaps.StaticSitemap,
     'courses': course_sitemaps.CourseSitemap,
     'lessons': course_sitemaps.CourseLessonSitemap
 }

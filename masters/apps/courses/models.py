@@ -40,6 +40,7 @@ class Course(models.Model):
     level = models.CharField(_("Level"), max_length=100, blank=True)
     suggested_to = models.TextField(_("Suggested To"), blank=True)
     published = models.BooleanField(_("Published"), default=True)
+    in_progress = models.BooleanField(_("in progress"), default=False)
     created = models.DateTimeField(_("Created"), auto_now_add=True)
     updated = models.DateTimeField(_("Updated"), auto_now=True)
 

@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
-SITE_PROTOCOL = "https"
+SITE_PROTOCOL = "http"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
