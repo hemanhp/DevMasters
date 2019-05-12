@@ -46,7 +46,7 @@
                 <div class="container">
 
                     {% if item.is_free %}
-                        <style>.h_iframe-aparat_embed_frame{position:relative;}.h_iframe-aparat_embed_frame .ratio{display:block;width:100%;height:auto;}.h_iframe-aparat_embed_frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;}</style><div class="h_iframe-aparat_embed_frame"><span style="display: block;padding-top: 57%"></span><iframe src="{{ item.public_url }}" allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe></div>
+                        <div id="{{ item.id }}"><script type="text/JavaScript"src="{{ item.public_url }}?data[rnddiv]={{ item.id }}&data[responsive]=yes"></script></div>
                     {% elif enrolled %}
                         <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
                              data-domfactory-upgraded="player">
@@ -55,7 +55,6 @@
                                 <video id="player" playsinline controls>
                                     <source src="{{ item.public_url }}" type="video/mp4"/>
 
-                                    <!-- Captions are optional -->
                                 </video>
                                 <div class="player__embed d-none">
                                 </div>
