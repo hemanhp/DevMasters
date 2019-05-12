@@ -9,5 +9,3 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 STATIC_ROOT = "/avat/public/devmaster.ir/static/"
-
-
