@@ -87,12 +87,12 @@
 
                                 {% for section in object.coursesection_set.all %}
                                 <li class="accordion__item open">
-                                    <a class="accordion__toggle" data-toggle="collapse" data-parent="#course-toc" href="#course-toc-1">
+                                    <a class="accordion__toggle" data-toggle="collapse" data-parent="#course-toc" href="#course-toc-{{ section.id }}">
                                         <span class="flex">{{ section.title }}</span>
                                         <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                     </a>
                                     <div class="accordion__menu">
-                                        <ul class="list-unstyled collapse show" id="course-toc-1">
+                                        <ul class="list-unstyled collapse show" id="course-toc-{{ section.id }}">
                                             {% for item in section.coursesectionitem_set.all %}
                                                 {% if item.is_free or enrolled %}
                                                     <li class="accordion__menu-link">

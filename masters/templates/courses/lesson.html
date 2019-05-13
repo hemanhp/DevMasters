@@ -45,7 +45,17 @@
             <div class="bg-gradient-primary pb-lg-64pt py-32pt">
                 <div class="container">
 
-                    {% if item.is_free %}
+                    {% if item.need_enroll and not enrolled %}
+                        <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
+                             data-domfactory-upgraded="player">
+                            <div class="player embed-responsive-item">
+
+                                <div class="player__image"> برای پخش این ویدیو بایستی در دوره عضو شوید</div>
+                                <div class="player__embed d-none">
+                                </div>
+                            </div>
+                        </div>
+                    {% elif item.is_free %}
                         <div id="{{ item.id }}"><script type="text/JavaScript"src="{{ item.public_url }}?data[rnddiv]={{ item.id }}&data[responsive]=yes"></script></div>
                     {% elif enrolled %}
                         <div class="js-player embed-responsive embed-responsive-16by9 mb-32pt"
@@ -96,12 +106,12 @@
 
                                 {% for section in course.coursesection_set.all %}
                                 <li class="accordion__item open">
-                                    <a class="accordion__toggle" data-toggle="collapse" data-parent="#course-toc" href="#course-toc-1">
+                                    <a class="accordion__toggle" data-toggle="collapse" data-parent="#course-toc" href="#course-toc-{{ section.id }}">
                                         <span class="flex">{{ section.title }}</span>
                                         <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                     </a>
                                     <div class="accordion__menu">
-                                        <ul class="list-unstyled collapse show" id="course-toc-1">
+                                        <ul class="list-unstyled collapse show" id="course-toc-{{ section.id }}">
                                             {% for item in section.coursesectionitem_set.all %}
                                                 {% if item.is_free or enrolled %}
                                                     <li class="accordion__menu-link active">
@@ -177,7 +187,7 @@
                             </div>
                             <div class="col-md-5">
                                 <h4>آنچه یاد خواهید گرفت</h4>
-                                {% for keypoint in object.coursekeypoint_set.all %}
+                                {% for keypoint in course.coursekeypoint_set.all %}
                                     <li class="d-flex align-items-center">
                                         <span class="material-icons text-50 mr-8pt">check</span>
                                         <span class="text-70">{{ keypoint.title }}</span>

@@ -24,7 +24,7 @@ from masters.apps.statics import  sitemaps as static_sitemaps
 
 urlpatterns = [
     path('', home_view, name="home"),
-    path('admin/', admin.site.urls),
+    path('PJzclOrm/', admin.site.urls),
     path('auth/', include('social_django.urls', namespace='social')),
     path('accounts/', include('masters.apps.users.urls')),
     path('courses/', include('masters.apps.courses.urls')),

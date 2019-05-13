@@ -93,6 +93,7 @@ class CourseSectionItem(models.Model):
     slug = models.SlugField(_('Slug'), allow_unicode=True, max_length=255, unique=True)
     item_type = models.CharField(_("Item Type"), max_length=255, choices=ITEM_TYPE_CHOICE, default=VIDEO)
     is_free = models.BooleanField(_("Is Free"), default=False)
+    need_enroll = models.BooleanField(_("need enrolled"), default=True)
     public_url = models.CharField(_("Public Url"), max_length=1024, blank=True)
     duration = models.CharField(_("Duration", ), max_length=128, blank=True)
     weight = models.SmallIntegerField(_("Weight"), null=True, blank=True)

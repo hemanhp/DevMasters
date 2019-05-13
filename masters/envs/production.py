@@ -1,6 +1,11 @@
 from .common import *
 
 DEBUG = False
+
+
+SITE_ID = 1
+SITE_PROTOCOL = "https"
+
 ALLOWED_HOSTS = ['devmasters.ir']
 
 STATICFILES_DIRS = [
