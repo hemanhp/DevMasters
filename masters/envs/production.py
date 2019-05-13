@@ -6,7 +6,7 @@ DEBUG = False
 SITE_ID = 1
 SITE_PROTOCOL = "https"
 
-ALLOWED_HOSTS = ['devmasters.ir']
+ALLOWED_HOSTS = ['devmasters.ir', 'www.devmasters.ir']
 
 STATICFILES_DIRS = [
     PROJECT_DIR + '/masters/statics'
